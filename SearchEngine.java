@@ -12,13 +12,16 @@ class Handler implements URLHandler {
             String[] searchParameters = url.getQuery().split("=");
             String returnString = "";
             for (int i = 0; i < strList.size(); i++) {
-                if (strList.get(i).contains(searchParameters[1])) {
-                    if (i < (strList.size()-1)) {
-                        returnString += strList.get(i) + ", ";
-                    } else if (i == (strList.size()-1)) {
-                        returnString += strList.get(i);
+                if(searchParameters[0].equals("s")) {
+                    if (strList.get(i).contains(searchParameters[1])) {
+                        if (i < (strList.size()-1)) {
+                            returnString += strList.get(i) + ", ";
+                        } else if (i == (strList.size()-1)) {
+                            returnString += strList.get(i);
+                        }
                     }
                 }
+                else {return "404 Not Found";}
             }
             return String.format("Results: %s", returnString);
         } else if (url.getPath().contains("/add")) {
